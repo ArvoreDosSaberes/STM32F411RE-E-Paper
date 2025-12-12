@@ -1,0 +1,3 @@
+[submodule "E-Paper"]
+	path = Drivers/E-Paper
+	url = git@github.com:ArvoreDosSaberes/E-Paper-Library.git
