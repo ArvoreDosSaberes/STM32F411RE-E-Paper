@@ -93,17 +93,18 @@ int main(void)
   /* USER CODE BEGIN 2 */
   //HAL_GPIO_WritePin(PWR_GPIO_Port, PWR_Pin, 1);
   ePaper_Init();
-  ePaper_Clear();
+
+  ePaper_FrameBufferClear(EPAPER_COLOR_WHITE);
+  ePaper_SetFont(EPAPER_FONT_BIG_16X32);
+  ePaper_DrawString(8, 40, "RAPPORT", EPAPER_COLOR_BLACK);
+  ePaper_Refresh();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    ePaper_Clear();
-	  HAL_Delay(5000);
-	  ePaper_Clear_Black();
-    HAL_Delay(5000);
+	  HAL_Delay(1000);
     
     /* USER CODE END WHILE */
 
