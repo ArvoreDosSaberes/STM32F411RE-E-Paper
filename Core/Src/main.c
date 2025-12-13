@@ -25,6 +25,62 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "epaper.h"
+
+#include "fonts/FreeSans9pt7b.h"
+#include "fonts/FreeSans12pt7b.h"
+#include "fonts/FreeSans18pt7b.h"
+#include "fonts/FreeSans24pt7b.h"
+#include "fonts/FreeSansBold12pt7b.h"
+#include "fonts/FreeSansBold9pt7b.h"
+#include "fonts/FreeSansBold18pt7b.h"
+#include "fonts/FreeSansBold24pt7b.h"
+#include "fonts/FreeSansOblique9pt7b.h"
+#include "fonts/FreeSansOblique12pt7b.h"
+#include "fonts/FreeSansOblique18pt7b.h"
+#include "fonts/FreeSansOblique24pt7b.h"
+#include "fonts/FreeSansBoldOblique9pt7b.h"
+#include "fonts/FreeSansBoldOblique12pt7b.h"
+#include "fonts/FreeSansBoldOblique18pt7b.h"
+#include "fonts/FreeSansBoldOblique24pt7b.h"
+
+#include "fonts/FreeSerif9pt7b.h"
+#include "fonts/FreeSerif12pt7b.h"
+#include "fonts/FreeSerif18pt7b.h"
+#include "fonts/FreeSerif24pt7b.h"
+#include "fonts/FreeSerifBold9pt7b.h"
+#include "fonts/FreeSerifBold12pt7b.h"
+#include "fonts/FreeSerifBold18pt7b.h"
+#include "fonts/FreeSerifBold24pt7b.h"
+#include "fonts/FreeSerifItalic9pt7b.h"
+#include "fonts/FreeSerifItalic12pt7b.h"
+#include "fonts/FreeSerifItalic18pt7b.h"
+#include "fonts/FreeSerifItalic24pt7b.h"
+#include "fonts/FreeSerifBoldItalic9pt7b.h"
+#include "fonts/FreeSerifBoldItalic12pt7b.h"
+#include "fonts/FreeSerifBoldItalic18pt7b.h"
+#include "fonts/FreeSerifBoldItalic24pt7b.h"
+
+#include "fonts/FreeMono9pt7b.h"
+#include "fonts/FreeMono12pt7b.h"
+#include "fonts/FreeMono18pt7b.h"
+#include "fonts/FreeMono24pt7b.h"
+#include "fonts/FreeMonoBold9pt7b.h"
+#include "fonts/FreeMonoBold12pt7b.h"
+#include "fonts/FreeMonoBold18pt7b.h"
+#include "fonts/FreeMonoBold24pt7b.h"
+#include "fonts/FreeMonoOblique9pt7b.h"
+#include "fonts/FreeMonoOblique12pt7b.h"
+#include "fonts/FreeMonoOblique18pt7b.h"
+#include "fonts/FreeMonoOblique24pt7b.h"
+#include "fonts/FreeMonoBoldOblique9pt7b.h"
+#include "fonts/FreeMonoBoldOblique12pt7b.h"
+#include "fonts/FreeMonoBoldOblique18pt7b.h"
+#include "fonts/FreeMonoBoldOblique24pt7b.h"
+
+#include "fonts/TomThumb.h"
+#include "fonts/Org_01.h"
+#include "fonts/Picopixel.h"
+#include "fonts/Tiny3x3a2pt7b.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -95,16 +151,151 @@ int main(void)
   ePaper_Init();
 
   ePaper_FrameBufferClear(EPAPER_COLOR_WHITE);
-  ePaper_SetFont(EPAPER_FONT_BIG_16X32);
-  ePaper_DrawString(8, 40, "RAPPORT", EPAPER_COLOR_BLACK);
   ePaper_Refresh();
+
+  const GFXfont *fonts[] = {
+		&FreeSans9pt7b,
+		&FreeSans12pt7b,
+		&FreeSans18pt7b,
+		&FreeSans24pt7b,
+		&FreeSansBold9pt7b,
+		&FreeSansBold12pt7b,
+		&FreeSansBold18pt7b,
+		&FreeSansBold24pt7b,
+		&FreeSansOblique9pt7b,
+		&FreeSansOblique12pt7b,
+		&FreeSansOblique18pt7b,
+		&FreeSansOblique24pt7b,
+		&FreeSansBoldOblique9pt7b,
+		&FreeSansBoldOblique12pt7b,
+		&FreeSansBoldOblique18pt7b,
+		&FreeSansBoldOblique24pt7b,
+		&FreeSerif9pt7b,
+		&FreeSerif12pt7b,
+		&FreeSerif18pt7b,
+		&FreeSerif24pt7b,
+		&FreeSerifBold9pt7b,
+		&FreeSerifBold12pt7b,
+		&FreeSerifBold18pt7b,
+		&FreeSerifBold24pt7b,
+		&FreeSerifItalic9pt7b,
+		&FreeSerifItalic12pt7b,
+		&FreeSerifItalic18pt7b,
+		&FreeSerifItalic24pt7b,
+		&FreeSerifBoldItalic9pt7b,
+		&FreeSerifBoldItalic12pt7b,
+		&FreeSerifBoldItalic18pt7b,
+		&FreeSerifBoldItalic24pt7b,
+		&FreeMono9pt7b,
+		&FreeMono12pt7b,
+		&FreeMono18pt7b,
+		&FreeMono24pt7b,
+		&FreeMonoBold9pt7b,
+		&FreeMonoBold12pt7b,
+		&FreeMonoBold18pt7b,
+		&FreeMonoBold24pt7b,
+		&FreeMonoOblique9pt7b,
+		&FreeMonoOblique12pt7b,
+		&FreeMonoOblique18pt7b,
+		&FreeMonoOblique24pt7b,
+		&FreeMonoBoldOblique9pt7b,
+		&FreeMonoBoldOblique12pt7b,
+		&FreeMonoBoldOblique18pt7b,
+		&FreeMonoBoldOblique24pt7b,
+		&TomThumb,
+		&Org_01,
+		&Picopixel,
+		&Tiny3x3a2pt7b,
+  };
+
+  const char *fontNames[] = {
+		"FreeSans9pt7b",
+		"FreeSans12pt7b",
+		"FreeSans18pt7b",
+		"FreeSans24pt7b",
+		"FreeSansBold9pt7b",
+		"FreeSansBold12pt7b",
+		"FreeSansBold18pt7b",
+		"FreeSansBold24pt7b",
+		"FreeSansOblique9pt7b",
+		"FreeSansOblique12pt7b",
+		"FreeSansOblique18pt7b",
+		"FreeSansOblique24pt7b",
+		"FreeSansBoldOblique9pt7b",
+		"FreeSansBoldOblique12pt7b",
+		"FreeSansBoldOblique18pt7b",
+		"FreeSansBoldOblique24pt7b",
+		"FreeSerif9pt7b",
+		"FreeSerif12pt7b",
+		"FreeSerif18pt7b",
+		"FreeSerif24pt7b",
+		"FreeSerifBold9pt7b",
+		"FreeSerifBold12pt7b",
+		"FreeSerifBold18pt7b",
+		"FreeSerifBold24pt7b",
+		"FreeSerifItalic9pt7b",
+		"FreeSerifItalic12pt7b",
+		"FreeSerifItalic18pt7b",
+		"FreeSerifItalic24pt7b",
+		"FreeSerifBoldItalic9pt7b",
+		"FreeSerifBoldItalic12pt7b",
+		"FreeSerifBoldItalic18pt7b",
+		"FreeSerifBoldItalic24pt7b",
+		"FreeMono9pt7b",
+		"FreeMono12pt7b",
+		"FreeMono18pt7b",
+		"FreeMono24pt7b",
+		"FreeMonoBold9pt7b",
+		"FreeMonoBold12pt7b",
+		"FreeMonoBold18pt7b",
+		"FreeMonoBold24pt7b",
+		"FreeMonoOblique9pt7b",
+		"FreeMonoOblique12pt7b",
+		"FreeMonoOblique18pt7b",
+		"FreeMonoOblique24pt7b",
+		"FreeMonoBoldOblique9pt7b",
+		"FreeMonoBoldOblique12pt7b",
+		"FreeMonoBoldOblique18pt7b",
+		"FreeMonoBoldOblique24pt7b",
+		"TomThumb",
+		"Org_01",
+		"Picopixel",
+		"Tiny3x3a2pt7b",
+  };
+
+  const uint32_t fontsCount = (uint32_t)(sizeof(fonts) / sizeof(fonts[0]));
+
+  uint32_t fontIndex = 0;
+  uint32_t nextTick = HAL_GetTick();
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  HAL_Delay(1000);
+	  uint32_t now = HAL_GetTick();
+	  if ((int32_t)(now - nextTick) >= 0) {
+		  uint32_t index = (uint32_t)(fontIndex % fontsCount);
+		  const GFXfont *font = fonts[index];
+		  const char *fontName = fontNames[index];
+		  fontIndex++;
+
+		  ePaper_FrameBufferClear(EPAPER_COLOR_WHITE);
+
+		  ePaper_SetFont(EPAPER_FONT_DEFAULT_8X8);
+		  ePaper_SetGfxFont(NULL);
+		  ePaper_DrawString(0, 0, "Font demo:", EPAPER_COLOR_BLACK);
+		  ePaper_DrawString(0, 10, fontName, EPAPER_COLOR_BLACK);
+
+		  ePaper_SetGfxFont(font);
+		  ePaper_DrawString(0, 40, "AaBbCcDdEe", EPAPER_COLOR_BLACK);
+		  ePaper_DrawString(0, 40 + (font->yAdvance ? font->yAdvance : 8u), "0123456789", EPAPER_COLOR_BLACK);
+		  ePaper_DrawString(0, 40 + (font->yAdvance ? (uint16_t)(2u * font->yAdvance) : 16u), "RAPPORT", EPAPER_COLOR_BLACK);
+
+		  ePaper_Refresh();
+		  nextTick += 2000u;
+	  }
     
     /* USER CODE END WHILE */
 
