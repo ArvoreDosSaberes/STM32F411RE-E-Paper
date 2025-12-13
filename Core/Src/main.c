@@ -26,6 +26,8 @@
 /* USER CODE BEGIN Includes */
 #include "epaper.h"
 
+#include <stdio.h>
+
 #include "fonts/FreeSans9pt7b.h"
 #include "fonts/FreeSans12pt7b.h"
 #include "fonts/FreeSans18pt7b.h"
@@ -265,7 +267,34 @@ int main(void)
 
   const uint32_t fontsCount = (uint32_t)(sizeof(fonts) / sizeof(fonts[0]));
 
+  static const char *emojis[] = {
+		"👍🏼",
+		"👎🏼",
+		"🙃",
+		"😞",
+		"😊",
+		"👂🏼",
+		"💚",
+		"❤️",
+		"❌",
+		"⭕",
+		"⛔",
+		"🚫",
+		"♨️",
+		"🔆",
+		"♻️",
+		"✅",
+		"🔺",
+		"🔻",
+		"📢",
+		"🗯️",
+		"💭",
+  };
+
+  const uint32_t emojisCount = (uint32_t)(sizeof(emojis) / sizeof(emojis[0]));
+
   uint32_t fontIndex = 0;
+  uint32_t emojiIndex = 0;
   uint32_t nextTick = HAL_GetTick();
 
   /* USER CODE END 2 */
@@ -281,17 +310,47 @@ int main(void)
 		  const char *fontName = fontNames[index];
 		  fontIndex++;
 
+		  const char *emoji = emojis[(uint32_t)(emojiIndex % emojisCount)];
+		  emojiIndex++;
+
+		  uint16_t symbolSizePx = 60u;
+		  if (font != NULL && font->yAdvance != 0u) {
+			  symbolSizePx = font->yAdvance;
+		  }
+		  if (symbolSizePx < 30u) {
+			  symbolSizePx = 30u;
+		  }
+		  if (symbolSizePx > 200u) {
+			  symbolSizePx = 200u;
+		  }
+		  ePaper_SetSymbolSize(symbolSizePx);
+
 		  ePaper_FrameBufferClear(EPAPER_COLOR_WHITE);
 
 		  ePaper_SetFont(EPAPER_FONT_DEFAULT_8X8);
 		  ePaper_SetGfxFont(NULL);
 		  ePaper_DrawString(0, 0, "Font demo:", EPAPER_COLOR_BLACK);
 		  ePaper_DrawString(0, 10, fontName, EPAPER_COLOR_BLACK);
+		  {
+			  char line[96];
+			  (void)snprintf(line, sizeof(line), "8x8 %s demo %s", emoji, emoji);
+			  ePaper_DrawString(0, 22, line, EPAPER_COLOR_BLACK);
+		  }
 
 		  ePaper_SetGfxFont(font);
-		  ePaper_DrawString(0, 40, "AaBbCcDdEe", EPAPER_COLOR_BLACK);
-		  ePaper_DrawString(0, 40 + (font->yAdvance ? font->yAdvance : 8u), "0123456789", EPAPER_COLOR_BLACK);
-		  ePaper_DrawString(0, 40 + (font->yAdvance ? (uint16_t)(2u * font->yAdvance) : 16u), "RAPPORT", EPAPER_COLOR_BLACK);
+		  {
+			  uint16_t y0 = 40u;
+			  uint16_t yStep = (font != NULL && font->yAdvance != 0u) ? font->yAdvance : 16u;
+			  char line1[96];
+			  char line2[96];
+			  char line3[96];
+			  (void)snprintf(line1, sizeof(line1), "AaBb %s CcDd", emoji);
+			  (void)snprintf(line2, sizeof(line2), "0123 %s 4567", emoji);
+			  (void)snprintf(line3, sizeof(line3), "RAPPORT %s", emoji);
+			  ePaper_DrawString(0, y0, line1, EPAPER_COLOR_BLACK);
+			  ePaper_DrawString(0, (uint16_t)(y0 + yStep), line2, EPAPER_COLOR_BLACK);
+			  ePaper_DrawString(0, (uint16_t)(y0 + (uint16_t)(2u * yStep)), line3, EPAPER_COLOR_BLACK);
+		  }
 
 		  ePaper_Refresh();
 		  nextTick += 2000u;
