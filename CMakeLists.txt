@@ -37,8 +37,17 @@ add_executable(${CMAKE_PROJECT_NAME})
 # Add STM32CubeMX generated sources
 add_subdirectory(cmake/stm32cubemx)
 
-# Add external/user libraries
-add_subdirectory(Drivers/E-Paper)
+include(FetchContent)
+
+FetchContent_Declare(
+    E-Paper
+    GIT_REPOSITORY https://github.com/ArvoreDosSaberes/E-Paper-Library.git
+    GIT_TAG main
+)
+
+FetchContent_MakeAvailable(E-Paper)
+
+
 
 # Link directories setup
 target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
@@ -53,7 +62,6 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
-    Drivers/E-Paper
 )
 
 # Add project symbols (macros)
